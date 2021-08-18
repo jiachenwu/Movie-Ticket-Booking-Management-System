@@ -1,0 +1,84 @@
+{% extends "index.html" %}
+{% block title %} Explore Theater {% endblock %}
+
+
+{% block table %}
+<div>
+    <form method="get">
+        <div class="form-group">
+            <label for="theater_name">Theater Name</label>
+            <select class="custom-select d-block w-100" name="theater">
+                <option value="">--ALL--</option>
+                {%for theater in theaters %}
+                <option value="{{theater[0]}}">{{theater[0]}}</option>
+                {%endfor%}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="company_name">Company Name</label>
+            <select class="custom-select d-block w-100" name="company">
+                {%for company in companies %}
+                <option value="{{company[0]}}">{{company[0]}}</option>
+                {%endfor%}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="input" class="form-control" name="city" id="city">
+        </div>
+        <div class="form-group">
+            <label for="state">State</label>
+            <select class="custom-select d-block w-100" name="state">
+                <option value="">--ALL--</option>
+                {%for state in states %}
+                <option value="{{state[0]}}">{{state[0]}}</option>
+                {%endfor%}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</div>
+<hr>
+<form method="post">
+<div class="form-group">
+        <label class="control-label">
+            Visit Date
+        </label>
+        <input type="date" name="visit" required>
+        <input type="hidden" name="theater" id="theater"></input>
+        <input type="hidden" name="company" id="company"></input>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="exploreTheater">
+            <thead>
+                <tr>
+                    <th>Theater</th>
+                    <th>Address</th>
+                    <th>Company</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result %}
+                <tr>
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td><button class="btn btn-primary btn-sm visit" type="submit" data-theater="{{row[0]}}" data-company="{{row[2]}}">Visit</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</form>
+<script>
+$('.visit').on('click', function(e){
+    $('#theater').val($(this).data('theater'));
+    $('#company').val($(this).data('company'));
+    return true;
+})
+$('#exploreTheater').DataTable({ searching: false, });
+</script>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block title %} Index {% endblock %}
+{% block head %} <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script> <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{%endblock%}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="/">
+              Home <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          {% if g.user.is_admin %}
+          <li class="nav-item">
+            <a class="nav-link" href="/manage-user">
+              Manage User
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/manage-company">
+              Manage Company
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/create-movie">
+              Create Movie
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/create-theater">
+              Create Theater
+            </a>
+          </li>
+          {% endif %}
+          {% if g.user.is_manager %}
+          <li class="nav-item">
+            <a class="nav-link" href="/theater-overview">
+              Theater Overview
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/schedule-movie">
+              Schedule Movie
+            </a>
+          </li>
+          {% endif %}
+
+          {% if g.user.is_customer %}
+          <li class="nav-item">
+            <a class="nav-link" href="/explore-movie">
+              Explore Movie
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/view-history">
+              View History
+            </a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="/explore-theater">
+              Explore Theater
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/visit-history">
+              Visit History
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      {%block table %}
+        Welcome to Atlanta Movie
+      {% endblock %}
+    </main>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='sidebar.js') }}"></script>
+{% endblock %}

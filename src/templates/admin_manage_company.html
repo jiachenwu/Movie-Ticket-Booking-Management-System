@@ -1,0 +1,86 @@
+{% extends "index.html" %}
+{% block title %} Manage Company {% endblock %}
+{% block table %}
+<h2>Manage Company</h2>
+<div class="row">
+
+    <form class="form-inline">
+        <div class="form-group  mx-sm-3 mb-2">
+            <label for="Name">Name</label>
+            <select name="Name" class="form-control" id="Name">
+                <option>--ALL--</option>
+                {% for s in companies %}
+                <option value="{{s[0]}}">{{s[0]}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group  mx-sm-3 mb-2">
+            <label for="# City Covered"># City Covered</label>
+            <input type="number" class="form-control" name="minCityNumber" id="# City Covered"
+                placeholder="Enter minCityNumber">
+            <label for="# maxCity">--</label>
+            <input type="number" class="form-control" name="maxCityNumber" id="# maxCity"
+                placeholder="Enter maxCityNumber">
+        </div>
+        <div class="form-group  mx-sm-3 mb-2">
+            <label for="# Theater"># Theater</label>
+            <input type="number" class="form-control" name="minTheaterNumber" id="# Theater"
+                placeholder="Enter minTheaterNumber">
+            <label for="# Theater max">--</label>
+            <input type="number" class="form-control" name="maxTheaterNumber" id="# Theater max"
+                placeholder="Enter maxTheaterNumber">
+        </div>
+        <div class="form-group  mx-sm-3 mb-2">
+            <label for="# Employee"># Employee</label>
+            <input type="number" class="form-control" name="minEmployee" id="# Theater"
+                placeholder="Enter minEmployee">
+            <label for="# Employee max">--</label>
+            <input type="number" class="form-control" name="maxEmployee" id="# Employee max"
+                placeholder="Enter maxEmployee">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Filter</button>
+    </form>
+    
+</div>
+<br>
+<div class="table-responsive">
+    <table class="table table-striped table-sm" id="mamageCompany">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>#CityCovered</th>
+                <th>#Theaters</th>
+                <th>#Employee</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for iteration in company_detail %}
+            <tr>
+                <form method="get">
+                    <td>{{iteration[0]}}</td>
+                    <td>{{iteration[1]}}</td>
+                    <td>{{iteration[2]}}</td>
+                    <td>{{iteration[3]}}</td>
+                    <td>
+                        <a href="/company-detail?comName={{iteration[0]}}">
+                            <button class="btn btn-info btn-sm" type="button">Detail</button>
+                        </a>
+                    </form>
+                    </td>
+                </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- i donot know what the following are for -->
+    <script>
+        $(document).ready( function () {
+        $('#mamageCompany').DataTable({searching: false,});
+    } );
+    </script>
+    
+</div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "index.html" %}
+{% block title %} Theater Overview {% endblock %}
+
+
+{% block table %}
+<div>
+    <form method="get">
+        <div class="form-group">
+            <label>Movie Name</label>
+            <input type="text" class="form-control" name="movie"></input>
+        </div>
+        <div class="form-group">
+            <label for="company_name">Movie Duration</label>
+            <input type="number" name="min_duration">
+            </input> - <input type="number" name="max_duration">
+            </input>
+        </div>
+        <div class="form-group">
+            <label for="company_name">Movie Release Date</label>
+            <input type="date" name="min_release">
+            </input> - <input type="date" name="max_release">
+            </input>
+        </div>
+        <div class="form-group">
+            <label for="company_name">Movie Play Date</label>
+            <input type="date" name="min_play">
+            </input> - <input type="date" name="max_play">
+            </input>
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</div>
+<hr>
+<form method="post">
+<div class="form-group">
+        <label class="control-label">
+            Visit Date
+        </label>
+        <input type="date" name="visit" required>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="overview">
+            <thead>
+                <tr>
+                    <th>Movie Name</th>
+                    <th>Duration</th>
+                    <th>Release Date</th>
+                    <th>Play Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result %}
+                <tr>
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td>{{'' if not row[3] else row[3]}}</td>
+                    <td><button class="btn btn-primary btn-sm">Visit</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</form>
+
+{% endblock %}

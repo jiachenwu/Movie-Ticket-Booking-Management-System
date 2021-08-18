@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+{% block title %} Schedule Movie{%endblock%}
+{% block table %}
+
+<div class="row">
+    <div class="col-8">
+        <form class="form-signin" method="POST">
+            <h1 class="h3 mb-3 font-weight-normal">Schedule Movie</h1>
+            <label for="name">Moive Name</label>
+            <select class="form-control" name="movie">
+                <option>--Select--</option>
+                {% for movie in movies %}
+                <option value="{{movie[0]}}" data-date="{{movie[1]}}">{{movie[0]}}</option>
+                {% endfor %}
+                </select>
+            <label for="release_date">Release Date</label>
+            <input type="date" name="release_date" id="release_date" class="form-control" readonly autofocus>
+            <label for="play_date">Play Date</label>
+            <input type="date" name="play_date" class="form-control" required autofocus>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+    
+            {% if error %}
+            <div class="alert alert-info" role="alert">
+                {{error}}
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+<script>
+    $('[name=movie]').on('change', function(){
+        const releaseDate = $(this).children("option:selected").attr('data-date');
+        $('#release_date').val(releaseDate);
+    })
+</script>
+{% endblock %}
+

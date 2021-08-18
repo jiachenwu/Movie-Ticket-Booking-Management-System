@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+{% block title %} Company Detail {% endblock %}
+{% block table %}
+
+<div class="row"><b>Name:</b> {{comName}}</div>
+<div class="row"><b>Employees:</b> {{employee}}</div>
+<h2>Theaters</h2>
+<div class="table-responsive">
+    <table class="table table-striped table-sm" id="detail">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Manager</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Capacity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for iteration in company %}
+            <tr>
+                <form method="get">
+                    <td>{{iteration[0]}}</td>
+                    <td>{{iteration[1]}}</td>
+                    <td>{{iteration[2]}}</td>
+                    <td>{{iteration[3]}}</td>
+                    <td>{{iteration[4]}}</td>
+                </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+        $(document).ready( function () {
+        $('#detail').DataTable({searching: false,});
+    } );
+    </script>
+{% endblock %}
